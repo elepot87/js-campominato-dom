@@ -123,13 +123,22 @@ function handleSquareClick(squareElement, bombList, tentativi, maxTentativi) {
   // ottenere il numero dello square che utente ha cliccato
   const number = parseInt(squareElement.innerText);
   console.log(number);
+
   // capire se utente ha calpestato una bomba, quindi se il number appena restituito è nella lista delle bombe(array bombList). E poi se non è una bomba o numero già cliccato.
+
   if (bombList.includes(number)) {
     console.log("hai colpito una bomba!");
   } else if (!tentativi.includes(number)) {
     // aggiungere colore di sfondo relativo alla casella "safe"
     squareElement.classList.add("safe");
+
     // aggiungere il numero alla lista dei tentativi
+    tentativi.push(number);
+    console.log("tentativi riusciti", tentativi);
+
     // controllo se numero di tentativi è uguale al maxTentativi possibili
+    if (tentativi.length === maxTentativi) {
+      console.log("hai vinto!");
+    }
   }
 }
