@@ -159,4 +159,19 @@ function endGame(bombList, tentativi, maxTentativi) {
       squareElement.classList.add("bomb");
     }
   }
+  // Testo del messaggio per la fine del gioco
+  let messaggeResult = `Complimenti, hai vinto! Hai fatto bene i ${maxTentativi} tentativi.`;
+
+  // Se si perde
+  if (tentativi.length < maxTentativi) {
+    messaggeResult = `Peccato, hai perso! :( Hai azzeccato ${tentativi.length} tentativi.`;
+  }
+
+  // Creare elemento per inserire il messaggio del risultato
+  const messaggeElement = document.createElement("div");
+  messaggeElement.classList.add("messagge");
+  messaggeElement.append(messaggeResult);
+
+  const wrapGrid = document.querySelector(".wrap-grid");
+  wrapGrid.append(messaggeElement);
 }
