@@ -46,6 +46,12 @@ btnPlay.addEventListener("click", function () {
   // Generazione delle bombe utilizzando la funzione creata
   const bombList = generateBombs(cellsNumber, 16);
   console.log("bombe generate", bombList);
+
+  // Lista dei tentativi
+  const tentativi = [];
+  const maxTentativi = cellsNumber - bombList.length;
+  console.log("tentativi possibili", maxTentativi);
+
   // Generazione della griglia totale (div con classe grid)
   const grid = document.createElement("div");
   grid.classList.add("grid");
@@ -53,10 +59,12 @@ btnPlay.addEventListener("click", function () {
   //   Generare le celle/square
   for (let i = 1; i <= cellsNumber; i++) {
     const squareElement = createGridSquare(i, cellPerSide);
-    // Aggiungo allo square Element la classe square-clicked quado clicco sopra uno degli square
+    // Aggiungo evento al clic di una cella/squareElement
     squareElement.addEventListener("click", function () {
-      this.classList.add("square-clicked");
+      // funzione per gestione del click
+      handleSquareClick(squareElement, bombList, tentativi, maxTentativi);
     });
+
     // Aggiungo alla grid lo square Element
     grid.append(squareElement);
   }
@@ -93,14 +101,11 @@ function createGridSquare(num, cells) {
 function generateBombs(totCells, totBombs) {
   // Lista di numeri/bombe vuota
   const bombs = [];
-
   // Ciclo per looppare le bombe/numeri nell'array bombs
   while (bombs.length < totBombs) {
     // Generazione di un numero random da inserire nell'array delle bombe con una funzione
     const bomb = getRandomNumber(1, totCells);
-
     // Controllare che il numero sia univoco con if
-
     if (!bombs.includes(bomb)) {
       bombs.push(bomb);
     }
@@ -111,4 +116,20 @@ function generateBombs(totCells, totBombs) {
 // Funzione per generazione di un numero random
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Funzione per gestione click
+function handleSquareClick(squareElement, bombList, tentativi, maxTentativi) {
+  // ottenere il numero dello square che utente ha cliccato
+  const number = parseInt(squareElement.innerText);
+  console.log(number);
+  // capire se utente ha calpestato una bomba, quindi se il number appena restituito è nella lista delle bombe(array bombList). E poi se non è una bomba o numero già cliccato.
+  if (bombList.includes(number)) {
+    console.log("hai colpito una bomba!");
+  } else if (!tentativi.includes(number)) {
+    // aggiungere colore di sfondo relativo alla casella "safe"
+    squareElement.classList.add("safe");
+    // aggiungere il numero alla lista dei tentativi
+    // controllo se numero di tentativi è uguale al maxTentativi possibili
+  }
 }
