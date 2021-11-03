@@ -139,7 +139,7 @@ function handleSquareClick(squareElement, bombList, tentativi, maxTentativi) {
 
     // controllo se numero di tentativi è uguale al maxTentativi possibili
     if (tentativi.length === maxTentativi) {
-      // console.log("hai vinto!");
+      console.log("hai vinto!");
       endGame(bombList, tentativi, maxTentativi);
     }
   }
@@ -174,4 +174,7 @@ function endGame(bombList, tentativi, maxTentativi) {
 
   const wrapGrid = document.querySelector(".wrap-grid");
   wrapGrid.append(messaggeElement);
+
+  // Disabilitare le square, quindi non renderle più cliccabili
+  document.querySelector(".grid").classList.add("end-game");
 }
