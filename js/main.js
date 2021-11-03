@@ -127,7 +127,8 @@ function handleSquareClick(squareElement, bombList, tentativi, maxTentativi) {
   // capire se utente ha calpestato una bomba, quindi se il number appena restituito è nella lista delle bombe(array bombList). E poi se non è una bomba o numero già cliccato.
 
   if (bombList.includes(number)) {
-    console.log("hai colpito una bomba!");
+    // console.log("hai colpito una bomba!");
+    endGame(bombList, tentativi, maxTentativi);
   } else if (!tentativi.includes(number)) {
     // aggiungere colore di sfondo relativo alla casella "safe"
     squareElement.classList.add("safe");
@@ -138,7 +139,24 @@ function handleSquareClick(squareElement, bombList, tentativi, maxTentativi) {
 
     // controllo se numero di tentativi è uguale al maxTentativi possibili
     if (tentativi.length === maxTentativi) {
-      console.log("hai vinto!");
+      // console.log("hai vinto!");
+      endGame(bombList, tentativi, maxTentativi);
+    }
+  }
+}
+
+// Funzione per la fine del gioco
+function endGame(bombList, tentativi, maxTentativi) {
+  // Ottenere tutte le celle/square - restituisce un array
+  const squares = document.querySelectorAll(".square");
+  console.log(squares);
+  // Mostrare tutte le bombe
+  for (let i = 0; i < squares.length; i++) {
+    const squareElement = squares[i];
+    const squareValue = parseInt(squareElement.innerText);
+    console.log(squareValue);
+    if (bombList.includes(squareValue)) {
+      squareElement.classList.add("bomb");
     }
   }
 }

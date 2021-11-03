@@ -84,7 +84,7 @@ header {
 }
 
 .square.safe,
-.square-bomb {
+.square.bomb {
   color: #fff;
   cursor: default;
 }
